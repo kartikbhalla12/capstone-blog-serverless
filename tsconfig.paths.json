@@ -1,9 +1,14 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@functions/*": ["src/functions/*"],
-      "@libs/*": ["src/libs/*"]
-    }
-  }
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@functions/*": ["src/functions/*"],
+			"@libs/*": ["src/libs/*"],
+			"@models/*": ["src/models/*"],
+			"@dataLayer/*": ["src/dataLayer/*"],
+			"@requests/*": ["src/requests/*"],
+			"@businessLogic/*": ["src/businessLogic/*"],
+			"@utils/*": ["src/utils/*"]
+		}
+	}
 }
