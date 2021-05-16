@@ -8,7 +8,8 @@
 			"@dataLayer/*": ["src/dataLayer/*"],
 			"@requests/*": ["src/requests/*"],
 			"@businessLogic/*": ["src/businessLogic/*"],
-			"@utils/*": ["src/utils/*"]
+			"@utils/*": ["src/utils/*"],
+			"@auth/*": ["src/auth/*"]
 		}
 	}
 }

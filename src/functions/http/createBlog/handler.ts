@@ -6,10 +6,14 @@ import { middyfy } from '@libs/lambda';
 
 import schema from './schema';
 import { createBlog } from '@businessLogic/blogs';
+import { parseUserId } from '@auth/utils';
 
 const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
 	async event => {
-		const userId = '124';
+		const authorizationHeader = event.headers.Authorization;
+		const jwtToken = authorizationHeader.split(' ')[1];
+
+		const userId = parseUserId(jwtToken);
 		const blog = await createBlog(event.body, userId);
 
 		return formatJSONResponse(

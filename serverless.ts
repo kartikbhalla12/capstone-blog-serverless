@@ -1,12 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 
-import {
-	hello,
-	getBlogs,
-	createBlog,
-	getUserBlogs,
-	updateUserBlog,
-} from '@functions/http';
+import { getBlogs, createBlog, updateBlog, deleteBlog } from '@functions/http';
+import auth from '@functions/auth';
 
 const serverlessConfiguration: AWS = {
 	service: 'blog',
@@ -51,12 +46,12 @@ const serverlessConfiguration: AWS = {
 			AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
 			BLOGS_TABLE: 'Blogs-${self:provider.stage}',
 			BLOGS_IMAGE_BUCKET: 'blogs-kartik-images-${self:provider.stage}',
-			BLOGS_USER_ID_INDEX: 'BlogsUserIdIndex',
+			BLOGS_ID_INDEX: 'BlogsIdIndex',
 		},
 		lambdaHashingVersion: '20201221',
 	},
 	// import the function via paths
-	functions: { hello, getBlogs, createBlog, getUserBlogs, updateUserBlog },
+	functions: { auth, getBlogs, createBlog, updateBlog, deleteBlog },
 
 	resources: {
 		Resources: {
@@ -64,21 +59,17 @@ const serverlessConfiguration: AWS = {
 				Type: 'AWS::DynamoDB::Table',
 				Properties: {
 					AttributeDefinitions: [
-						{ AttributeName: 'blogId', AttributeType: 'S' },
 						{ AttributeName: 'userId', AttributeType: 'S' },
+						{ AttributeName: 'blogId', AttributeType: 'S' },
 					],
 					KeySchema: [
-						// { AttributeName: 'userId', KeyType: 'HASH' },
-						// { AttributeName: 'blogId', KeyType: 'RANGE' },
-						{ AttributeName: 'blogId', KeyType: 'HASH' },
+						{ AttributeName: 'userId', KeyType: 'HASH' },
+						{ AttributeName: 'blogId', KeyType: 'RANGE' },
 					],
 					GlobalSecondaryIndexes: [
 						{
-							IndexName: '${self:provider.environment.BLOGS_USER_ID_INDEX}',
-							KeySchema: [
-								{ AttributeName: 'userId', KeyType: 'HASH' },
-								{ AttributeName: 'blogId', KeyType: 'RANGE' },
-							],
+							IndexName: '${self:provider.environment.BLOGS_ID_INDEX}',
+							KeySchema: [{ AttributeName: 'blogId', KeyType: 'HASH' }],
 							Projection: { ProjectionType: 'ALL' },
 						},
 					],

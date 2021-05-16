@@ -2,25 +2,23 @@ import 'source-map-support/register';
 
 import { formatJSONResponse } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
-import { APIGatewayProxyEvent, APIGatewayProxyHandler } from 'aws-lambda';
-import { getBlogs, getUserBlogs } from '@businessLogic/blogs';
-import { BlogItem } from '@models/blogItem';
+import { deleteUserBlog } from '@businessLogic/blogs';
+import { APIGatewayProxyHandler, APIGatewayProxyEvent } from 'aws-lambda';
 import { parseUserId } from '@auth/utils';
 
 const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
+	const blogId = event.pathParameters.blogId;
 	const authorizationHeader = event.headers.Authorization;
 	const jwtToken = authorizationHeader.split(' ')[1];
 
 	const userId = parseUserId(jwtToken);
 
-	let blogs: BlogItem[];
-
-	const self = event.queryStringParameters?.self;
-
-	if (self && Boolean(JSON.parse(self))) blogs = await getUserBlogs(userId);
-	else blogs = await getBlogs(userId);
-
-	return formatJSONResponse({ items: blogs }, 200);
+	try {
+		const deletedBlog = await deleteUserBlog(blogId, userId);
+		return formatJSONResponse({ item: deletedBlog }, 200);
+	} catch (ex) {
+		return formatJSONResponse({}, 400);
+	}
 };
 
 export const main = middyfy(handler);

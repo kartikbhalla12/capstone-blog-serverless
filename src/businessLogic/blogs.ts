@@ -49,3 +49,10 @@ export async function updateUserBlog(
 ): Promise<BlogItem> {
 	return blogAccess.updateUserBlog(userId, blogId, blogRequest);
 }
+
+export async function deleteUserBlog(
+	blogId: string,
+	userId: string
+): Promise<BlogItem> {
+	return blogAccess.deleteUserBlog(blogId, userId);
+}

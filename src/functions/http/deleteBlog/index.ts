@@ -5,18 +5,19 @@ export default {
 	events: [
 		{
 			http: {
-				method: 'get',
-				path: 'user/blogs',
+				method: 'delete',
+				path: 'blogs/{blogId}',
 				cors: true,
+				authorizer: 'auth',
 			},
 		},
 	],
 	iamRoleStatements: [
 		{
 			Effect: 'Allow',
-			Action: ['dynamodb:Query'],
+			Action: ['dynamodb:DeleteItem'],
 			Resource:
-				'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.BLOGS_TABLE}/index/${self:provider.environment.BLOGS_USER_ID_INDEX}',
+				'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.BLOGS_TABLE}',
 		},
 	],
 };

@@ -7,13 +7,14 @@ export default {
 		{
 			http: {
 				method: 'patch',
-				path: 'user/blogs/{blogId}',
+				path: 'blogs/{blogId}',
 				cors: true,
 				request: {
 					schema: {
 						'application/json': schema,
 					},
 				},
+				authorizer: 'auth',
 			},
 		},
 	],

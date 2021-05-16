@@ -1,7 +1,6 @@
-import hello from './hello';
 import getBlogs from './getBlogs';
 import createBlog from './createBlog';
-import getUserBlogs from './getUserBlogs';
-import updateUserBlog from './updateUserBlog';
+import updateBlog from './updateBlog';
+import deleteBlog from './deleteBlog';
 
-export { hello, getBlogs, createBlog, getUserBlogs, updateUserBlog };
+export { getBlogs, createBlog, updateBlog, deleteBlog };

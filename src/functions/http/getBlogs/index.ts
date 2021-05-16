@@ -8,15 +8,30 @@ export default {
 				method: 'get',
 				path: 'blogs',
 				cors: true,
+				authorizer: 'auth',
+				request: {
+					parameters: {
+						querystrings: {
+							self: false,
+						},
+					},
+				},
 			},
 		},
 	],
+
 	iamRoleStatements: [
 		{
 			Effect: 'Allow',
 			Action: ['dynamodb:Scan'],
 			Resource:
 				'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.BLOGS_TABLE}',
+		},
+		{
+			Effect: 'Allow',
+			Action: ['dynamodb:Query'],
+			Resource:
+				'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.BLOGS_TABLE}/index/${self:provider.environment.BLOGS_ID_INDEX}',
 		},
 	],
 };
