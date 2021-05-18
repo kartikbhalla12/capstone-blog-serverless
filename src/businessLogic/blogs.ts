@@ -20,6 +20,19 @@ export async function getUserBlogs(userId: string): Promise<BlogShort[]> {
 	return blogAccess.getUserBlogs(userId);
 }
 
+export async function getBlog(
+	userId: string,
+	blogId: string
+): Promise<BlogItem> {
+	return blogAccess.getBlog(userId, blogId);
+}
+export async function getUserBlog(
+	userId: string,
+	blogId: string
+): Promise<BlogItem> {
+	return blogAccess.getUserBlog(userId, blogId);
+}
+
 export async function createBlog(
 	blogRequest: BlogRequest,
 	userId: string

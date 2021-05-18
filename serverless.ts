@@ -1,6 +1,12 @@
 import type { AWS } from '@serverless/typescript';
 
-import { getBlogs, createBlog, updateBlog, deleteBlog } from '@functions/http';
+import {
+	getBlogs,
+	createBlog,
+	updateBlog,
+	deleteBlog,
+	getBlog,
+} from '@functions/http';
 import auth from '@functions/auth';
 
 const serverlessConfiguration: AWS = {
@@ -51,7 +57,7 @@ const serverlessConfiguration: AWS = {
 		lambdaHashingVersion: '20201221',
 	},
 	// import the function via paths
-	functions: { auth, getBlogs, createBlog, updateBlog, deleteBlog },
+	functions: { auth, getBlogs, createBlog, updateBlog, deleteBlog, getBlog },
 
 	resources: {
 		Resources: {

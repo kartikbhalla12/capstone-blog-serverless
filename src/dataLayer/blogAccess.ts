@@ -47,6 +47,41 @@ export class BlogAccess {
 
 		return result.Items as BlogShort[];
 	}
+
+	async getBlog(userId: string, blogId: string): Promise<BlogItem> {
+		logger.info(`Getting Blog with id: ${blogId}`);
+		const result = await this.docClient
+			.scan({
+				TableName: this.blogsTable,
+				IndexName: this.blogsIdIndex,
+				FilterExpression: 'userId <> :userId AND blogId = :blogId', // Not equal to userId
+				ExpressionAttributeValues: {
+					':userId': userId,
+					':blogId': blogId,
+				},
+			})
+			.promise();
+
+		return result.Items[0] as BlogItem;
+	}
+
+	async getUserBlog(userId: string, blogId: string): Promise<BlogItem> {
+		logger.info(`Getting User Blog with id: ${blogId}`);
+		const result = await this.docClient
+			.query({
+				TableName: this.blogsTable,
+				KeyConditionExpression: 'userId = :userId AND blogId = :blogId',
+				ExpressionAttributeValues: {
+					':userId': userId,
+					':blogId': blogId,
+				},
+				ScanIndexForward: false,
+			})
+			.promise();
+
+		return result.Items[0] as BlogItem;
+	}
+
 	async createBlog(blogItem: BlogItem): Promise<BlogItem> {
 		logger.info('Creating a blog with id: ', blogItem.blogId);
 

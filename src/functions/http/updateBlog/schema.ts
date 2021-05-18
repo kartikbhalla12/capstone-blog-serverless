@@ -1,11 +1,11 @@
 export default {
 	type: 'object',
 	properties: {
-		name: { type: 'string' },
+		authorName: { type: 'string' },
 		heading: { type: 'string' },
-		subHeading: { type: 'string' },
+		description: { type: 'string' },
 		content: { type: 'string' },
 		timeToRead: { type: 'string' },
 	},
-	required: ['heading', 'subHeading', 'content', 'timeToRead'],
+	required: ['authorName', 'heading', 'description', 'content', 'timeToRead'],
 } as const;
