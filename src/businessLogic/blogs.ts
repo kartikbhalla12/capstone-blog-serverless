@@ -2,6 +2,7 @@ import { BlogItem } from '@models/blogItem';
 import { BlogAccess } from '@dataLayer/blogAccess';
 import * as uuid from 'uuid';
 import BlogStorage from '@dataLayer/blogStorage';
+import BlogShort from './../models/blogShort';
 
 const blogAccess = new BlogAccess();
 const blogStorage = new BlogStorage();
@@ -11,11 +12,11 @@ interface createBlogResponse {
 	blogImageUploadUrl: string;
 }
 
-export async function getBlogs(userId: string): Promise<BlogItem[]> {
+export async function getBlogs(userId: string): Promise<BlogShort[]> {
 	return blogAccess.getBlogs(userId);
 }
 
-export async function getUserBlogs(userId: string): Promise<BlogItem[]> {
+export async function getUserBlogs(userId: string): Promise<BlogShort[]> {
 	return blogAccess.getUserBlogs(userId);
 }
 

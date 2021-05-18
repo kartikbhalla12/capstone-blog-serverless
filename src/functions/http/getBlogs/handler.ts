@@ -4,8 +4,8 @@ import { formatJSONResponse } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
 import { APIGatewayProxyEvent, APIGatewayProxyHandler } from 'aws-lambda';
 import { getBlogs, getUserBlogs } from '@businessLogic/blogs';
-import { BlogItem } from '@models/blogItem';
 import { parseUserId } from '@auth/utils';
+import BlogShort from './../../../models/blogShort';
 
 const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 	const authorizationHeader = event.headers.Authorization;
@@ -13,7 +13,7 @@ const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
 
 	const userId = parseUserId(jwtToken);
 
-	let blogs: BlogItem[];
+	let blogs: BlogShort[];
 
 	const self = event.queryStringParameters?.self;
 

@@ -23,13 +23,13 @@ export default {
 	iamRoleStatements: [
 		{
 			Effect: 'Allow',
-			Action: ['dynamodb:Scan'],
+			Action: ['dynamodb:Scan', 'dynamodb:Query'],
 			Resource:
 				'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.BLOGS_TABLE}',
 		},
 		{
 			Effect: 'Allow',
-			Action: ['dynamodb:Query'],
+			Action: ['dynamodb:Scan'],
 			Resource:
 				'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.BLOGS_TABLE}/index/${self:provider.environment.BLOGS_ID_INDEX}',
 		},

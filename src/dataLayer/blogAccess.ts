@@ -1,6 +1,7 @@
 import * as AWS from 'aws-sdk';
 import { createLogger } from '@utils/logger';
 import { BlogItem } from './../models/blogItem';
+import BlogShort from './../models/blogShort';
 
 const logger = createLogger('blog');
 
@@ -11,7 +12,7 @@ export class BlogAccess {
 		private readonly blogsIdIndex = process.env.BLOGS_ID_INDEX
 	) {}
 
-	async getBlogs(userId: string): Promise<BlogItem[]> {
+	async getBlogs(userId: string): Promise<BlogShort[]> {
 		logger.info('Getting All Blogs');
 		const result = await this.docClient
 			.scan({
@@ -21,13 +22,15 @@ export class BlogAccess {
 				ExpressionAttributeValues: {
 					':userId': userId,
 				},
+				ProjectionExpression:
+					'blogId, authorName, heading, description, imageUrl, timeToRead',
 			})
 			.promise();
 
-		return result.Items as BlogItem[];
+		return result.Items as BlogShort[];
 	}
 
-	async getUserBlogs(userId: string): Promise<BlogItem[]> {
+	async getUserBlogs(userId: string): Promise<BlogShort[]> {
 		logger.info('Getting User Blogs');
 		const result = await this.docClient
 			.query({
@@ -37,10 +40,12 @@ export class BlogAccess {
 					':userId': userId,
 				},
 				ScanIndexForward: false,
+				ProjectionExpression:
+					'blogId, authorName, heading, description, imageUrl, timeToRead',
 			})
 			.promise();
 
-		return result.Items as BlogItem[];
+		return result.Items as BlogShort[];
 	}
 	async createBlog(blogItem: BlogItem): Promise<BlogItem> {
 		logger.info('Creating a blog with id: ', blogItem.blogId);
@@ -80,13 +85,14 @@ export class BlogAccess {
 				TableName: this.blogsTable,
 				Key: { blogId, userId },
 				UpdateExpression:
-					'set heading = :heading, subHeading = :subHeading, updatedAt = :updatedAt, content = :content, timeToRead = :timeToRead',
+					'set heading = :heading, description = :description, updatedAt = :updatedAt, content = :content, timeToRead = :timeToRead, authorName = :authorName',
 				ExpressionAttributeValues: {
 					':heading': blogRequest.heading,
-					':subHeading': blogRequest.subHeading,
+					':description': blogRequest.description,
 					':updatedAt': new Date().toISOString(),
 					':content': blogRequest.content,
 					':timeToRead': blogRequest.timeToRead,
+					':authorName': blogRequest.authorName,
 				},
 				ReturnValues: 'ALL_NEW',
 			})

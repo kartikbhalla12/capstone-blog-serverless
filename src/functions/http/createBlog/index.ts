@@ -25,5 +25,11 @@ export default {
 			Resource:
 				'arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.BLOGS_TABLE}',
 		},
+		{
+			Effect: 'Allow',
+			Action: ['s3:PutObject', 's3:GetObject'],
+			Resource:
+				'arn:aws:s3:::${self:provider.environment.BLOGS_IMAGE_BUCKET}/*',
+		},
 	],
 };

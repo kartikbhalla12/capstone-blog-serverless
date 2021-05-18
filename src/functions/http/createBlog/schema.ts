@@ -3,9 +3,10 @@ export default {
 	properties: {
 		name: { type: 'string' },
 		heading: { type: 'string' },
-		subHeading: { type: 'string' },
+		description: { type: 'string' },
 		content: { type: 'string' },
 		timeToRead: { type: 'string' },
+		authorName: { type: 'string' },
 	},
-	required: ['heading', 'subHeading', 'content', 'timeToRead'],
+	required: ['heading', 'description', 'content', 'timeToRead', 'authorName'],
 } as const;
