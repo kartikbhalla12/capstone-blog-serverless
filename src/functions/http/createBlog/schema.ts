@@ -4,7 +4,7 @@ export default {
 		name: { type: 'string' },
 		heading: { type: 'string' },
 		description: { type: 'string' },
-		content: { type: 'string' },
+		content: { type: 'object' },
 		timeToRead: { type: 'string' },
 		authorName: { type: 'string' },
 	},

@@ -1,7 +1,7 @@
 interface BlogRequest {
 	heading: string;
 	description: string;
-	content: string;
+	content: Object;
 	timeToRead: string;
 	authorName: string;
 }

@@ -7,6 +7,6 @@ export interface BlogItem {
 	createdAt: string;
 	updatedAt: string;
 	imageUrl: string;
-	content: string;
+	content: Object;
 	timeToRead: string;
 }
