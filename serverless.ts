@@ -6,6 +6,7 @@ import {
 	updateBlog,
 	deleteBlog,
 	getBlog,
+	getUpdateImageUrl,
 } from '@functions/http';
 import auth from '@functions/auth';
 
@@ -57,7 +58,15 @@ const serverlessConfiguration: AWS = {
 		lambdaHashingVersion: '20201221',
 	},
 	// import the function via paths
-	functions: { auth, getBlogs, createBlog, updateBlog, deleteBlog, getBlog },
+	functions: {
+		auth,
+		getBlogs,
+		createBlog,
+		updateBlog,
+		deleteBlog,
+		getBlog,
+		getUpdateImageUrl,
+	},
 
 	resources: {
 		Resources: {

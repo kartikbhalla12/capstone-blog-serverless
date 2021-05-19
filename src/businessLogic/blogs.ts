@@ -70,3 +70,9 @@ export async function deleteUserBlog(
 ): Promise<BlogItem> {
 	return blogAccess.deleteUserBlog(blogId, userId);
 }
+export async function getUpdateImageUrl(blogId: string, userId: string) {
+	const blog = blogAccess.getUserBlog(userId, blogId);
+
+	if (!blog) throw new Error('Can not generate update url!');
+	return await blogStorage.getAttachmentUploadUrl(blogId);
+}
