@@ -5,7 +5,7 @@ export default {
 		heading: { type: 'string' },
 		description: { type: 'string' },
 		content: { type: 'object' },
-		timeToRead: { type: 'string' },
+		timeToRead: { type: 'number' },
 	},
 	required: ['authorName', 'heading', 'description', 'content', 'timeToRead'],
 } as const;

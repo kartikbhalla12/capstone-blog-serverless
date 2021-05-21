@@ -2,6 +2,6 @@ interface BlogRequest {
 	heading: string;
 	description: string;
 	content: Object;
-	timeToRead: string;
+	timeToRead: number;
 	authorName: string;
 }

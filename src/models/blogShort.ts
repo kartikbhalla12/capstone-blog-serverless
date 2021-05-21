@@ -4,5 +4,5 @@ export default interface BlogShort {
 	heading: string;
 	description: string;
 	imageUrl: string;
-	timeToRead: string;
+	timeToRead: number;
 }

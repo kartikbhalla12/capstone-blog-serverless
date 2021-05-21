@@ -8,5 +8,5 @@ export interface BlogItem {
 	updatedAt: string;
 	imageUrl: string;
 	content: Object;
-	timeToRead: string;
+	timeToRead: number;
 }
