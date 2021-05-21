@@ -2,8 +2,10 @@ import * as AWS from 'aws-sdk';
 import { createLogger } from '@utils/logger';
 import { BlogItem } from './../models/blogItem';
 import BlogShort from './../models/blogShort';
+import * as AWSXRay from 'aws-xray-sdk';
 
 const logger = createLogger('blog');
+const XAWS = AWSXRay.captureAWS(AWS);
 
 export class BlogAccess {
 	constructor(
@@ -140,12 +142,12 @@ export class BlogAccess {
 		if (process.env.IS_OFFLINE) {
 			logger.info('Running DynamoDB locally!');
 
-			return new AWS.DynamoDB.DocumentClient({
+			return new XAWS.DynamoDB.DocumentClient({
 				region: 'localhost',
 				endpoint: 'http://localhost:8000',
 			});
 		}
 
-		return new AWS.DynamoDB.DocumentClient();
+		return new XAWS.DynamoDB.DocumentClient();
 	}
 }

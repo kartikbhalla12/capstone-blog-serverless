@@ -12,10 +12,12 @@
   "dependencies": {
     "@middy/core": "^1.5.2",
     "@middy/http-json-body-parser": "^1.5.2",
+    "aws-xray-sdk": "^3.3.3",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.3",
     "source-map-support": "^0.5.19",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@serverless/typescript": "^2.23.0",
