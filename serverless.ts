@@ -37,6 +37,11 @@ const serverlessConfiguration: AWS = {
 		'serverless-offline',
 		'serverless-dynamodb-local',
 	],
+
+	package: {
+		individually: true,
+	},
+
 	provider: {
 		name: 'aws',
 		runtime: 'nodejs14.x',
@@ -44,6 +49,11 @@ const serverlessConfiguration: AWS = {
 		stage: "${opt:stage, 'dev'}",
 		// @ts-ignore
 		region: "${opt:region, 'ap-south-1'}",
+
+		tracing: {
+			apiGateway: true,
+			lambda: true,
+		},
 
 		apiGateway: {
 			minimumCompressionSize: 1024,
